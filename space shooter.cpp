@@ -10,7 +10,7 @@
 //library untuk menggunakan getch
 
 
-#define LEBAR_LAYAR 90
+#define LEBAR_LAYAR 91
 #define TINGGI_LAYAR 26
 #define LEBAR_AREA 70
 #define MENU_WIDTH 20
@@ -32,8 +32,9 @@ int musuhX[3];
 int enemyFlag[3];
 // muncul dan menghilangnya musuh
 char pesawat[3][5] = { ' ',' ','^',' ',' ',
-					'|','^','^','^','|',
-					'^','?','?','?','^' }; 
+		       '|','^','^','^','|',
+		      '^','?','?','?','^' }; 
+
 int posisiPesawat = LEBAR_AREA/2;
 int skor = 0;
 int peluru[20][4];
@@ -43,9 +44,9 @@ int bIndex = 0;
 
 void load(){
 
-	system("Color 0B");
+	system("Color B");
 	cout<<"\n\n\n\n\n\n\n\n\n\n\n";
-	cout<<"\t\t\t\t\tLoading... \n";
+	cout<<"\t\t\t\t\t   Loading \n";
 	cout<<endl;
 	cout<<"\t\t\t  ";
 	char x =219;
@@ -65,10 +66,13 @@ void load(){
 void aturan(){
 	
 	system("cls");
-	cout<<"Instructions";
-	cout<<"\n----------------";
-	cout<<"\n Press spacebar to make bird fly";
-	cout<<"\n\nPress any key to continue";
+	cout<<"\n Instruksi :";
+	cout<<"\n----------------------------------------------------";
+	cout<<"\n Hindari tertabrak oleh musuh";
+	cout<<"\n a dan d untuk bergerak ke kiri dan ke kanan";
+	cout<<"\n Gunakan spasi untuk menembak musuh di depan";
+	cout<<"\n Capai target skor 10 untuk memenangkan pertandingan";
+	cout<<"\n\n Tekan apa saja untuk melanjutkan...";
 	getch();
 }
 
@@ -288,15 +292,17 @@ void mulai(){
 			cout<<"\t\t--------------------------"<<endl<<endl;
 			cout<<"\t\t    yaah kamu kalah :("<<endl<<endl;
 			getch();
-			cout << "\n\t\t    Mau main lagi? y/t";
-			cout<< "\n\t\t     Pilih Menu :";
+			system("cls");
+			cout << "\n\t\t     Mau main lagi? y/t";
+			cout<< "\n\t\t     y--> bermain kembali\n\t\t     t--> kembali ke menu :";
+			cout<< "\n\n\t\t     Pilihan Opsi :";
 			
 		        char pil;
 		        int counter=0;
 		        cin >> pil;
 		        while(((pil!='y')&&(pil!='t'))){
- 				cout<<"\tSilahkan masukkan pilihan yang tertera!\n";
- 				cout<< "\n\tPilih Menu :";
+ 				cout<<"\n\t\t     Opsi yang dipilih tidak tersedia.\n";
+ 				cout<< "\n\n\t\t     Pilihan Opsi :";
 					cin>>pil;
 					cout<<endl;
 					counter++;
@@ -319,9 +325,9 @@ void mulai(){
 					system("cls");
 					cout<<endl;
 					cout<<"\t\t--------------------------"<<endl;
-					cout<<"\t\t-------- KAMU MENANG -------"<<endl;
+					cout<<"\t\t-------- KAMU MENANG -----"<<endl;
 					cout<<"\t\t--------------------------"<<endl<<endl;
-					cout<<"\t\tPress any key to go back to menu.";
+					cout<<"\t\tTekan apapun untuk kembali ke menu.";
 					getch();
 					system("cls");
 					play_again = false;
@@ -356,6 +362,17 @@ int main()
 	setcursor(0,0); 
 	srand( (unsigned)time(NULL)); 
 	 
+	system ("color D");
+    gotoxy(27,10); cout<<"==============================================================";
+    gotoxy(27,11); cout<<"                                                              ";
+    gotoxy(27,12); cout<<"    _____                    _____ _           _              ";
+    gotoxy(27,13); cout<<"   |   __|___ ___ ___ ___   |   __| |_ ___ ___| |_ ___ ___    ";
+    gotoxy(27,14); cout<<"   |__   | . | .'|  _| -_|  |__   |   | . | . |  _| -_|  _|   ";
+    gotoxy(27,15); cout<<"   |_____|  _|__,|___|___|  |_____|_|_|___|___|_| |___|_|     ";
+    gotoxy(27,16); cout<<"         |_|                                                   ";
+    gotoxy(27,17); cout<< "=============================================================";
+    Sleep(4000);
+    system("cls");
 	do{
 	    if (play_again) {
 	        aturan();
@@ -364,9 +381,9 @@ int main()
 	    }
 	    else {
 		system("cls");
-		system("Color 0A");
+		system("Color A");
 		gotoxy(10,5); cout<<" -------------------------- "; 
-		gotoxy(10,6); cout<<" |     Space Shooter      | "; 
+		gotoxy(10,6); cout<<" |          MENU          | "; 
 		gotoxy(10,7); cout<<" --------------------------";
 		gotoxy(10,9); cout<<"1. Start Game";
 		gotoxy(10,10); cout<<"2. Quit";	 
@@ -380,7 +397,7 @@ int main()
 		load();
 		mulai();
 		}else if( op=='2'){
-		cout<<"Terimakasih sudah menggunakan program kami";
+		cout<<"\nTerimakasih sudah menggunakan program kami";
 		cout<<"\n(0>.<0)";
 		exit(0);
 		}else{
@@ -392,4 +409,3 @@ int main()
 	
 	return 0;
 }
-
