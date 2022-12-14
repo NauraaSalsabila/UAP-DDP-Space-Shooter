@@ -1,8 +1,3 @@
-//UAP DDP KELOMPOK 7
-//1. Naura Salsabila (2217051079)
-//2. Rio Arisandi (2217051154}
-//3. 
-
 
 #include <iostream>
 //library untuk menggunakan cout dan cin
