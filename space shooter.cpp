@@ -41,10 +41,10 @@ int peluru[20][4];
 int bulletsLife[20];
 int bIndex = 0;
 
-
+// fungsi untuk loading
 void load(){
 
-	system("Color B");
+	system("Color B"); // warna untuk tampilan loading dan saat bermain
 	cout<<"\n\n\n\n\n\n\n\n\n\n\n";
 	cout<<"\t\t\t\t\t   Loading \n";
 	cout<<endl;
@@ -95,6 +95,7 @@ void setcursor(bool visible, DWORD size) {
 	SetConsoleCursorInfo(console,&lpCursor);
 }
 void Border(){ 
+// untuk membuat bingkai/border pada game
 	
 	for(int i=0; i<LEBAR_LAYAR; i++){ 
 		gotoxy(i,TINGGI_LAYAR); cout<<"_";
@@ -113,6 +114,7 @@ void genEnemy(int ind){
 	//menentukan random arah kemunculan musuh 
 }
 void buatMusuh(int ind){
+// membuat bentuk musuh
 	if( enemyFlag[ind] == true ){
 		gotoxy(musuhX[ind], musuhY[ind]);   cout<<".**.";  
 		gotoxy(musuhX[ind], musuhY[ind]+1); cout<<"****"; 
@@ -122,6 +124,7 @@ void buatMusuh(int ind){
 	} 
 }
 void hapusMusuh(int ind){
+// menghapus musuh jika terkena peluru
 	if( enemyFlag[ind] == true ){
 		gotoxy(musuhX[ind], musuhY[ind]);   cout<<"    ";  
 		gotoxy(musuhX[ind], musuhY[ind]+1); cout<<"    "; 
@@ -130,11 +133,13 @@ void hapusMusuh(int ind){
 	} 
 }
 void resetMusuh(int ind){
+// mereset/mengeluarkan musuh
 	hapusMusuh(ind);
 	musuhY[ind] = 4;
 	genEnemy(ind);
 }
 void genBullet(){
+// mengeluarkan peluru dari pesawat 
 	peluru[bIndex][0] = 22;
 	peluru[bIndex][1] = posisiPesawat;
 	peluru[bIndex][2] = 22; 
@@ -157,6 +162,7 @@ void pindahPeluru(){
 	} 
 }
 void buatPeluru(){
+// membuat peluru 
 	for(int i=0; i<20; i++){
 		if( peluru[i][0] > 1){
 			gotoxy(peluru[i][1],peluru[i][0]); cout<<"."; 
