@@ -32,8 +32,8 @@ int enemyFlag[3];
 // muncul dan menghilangnya musuh
 
 char pesawat[3][5] = { ' ',' ','^',' ',' ',
-						'|','^','^','^','|',
-						'^','?','?','?','^' }; 
+			'|','^','^','^','|',
+			'^','?','?','?','^' }; 
 						
 int posisiPesawat = LEBAR_AREA/2;
 int skor = 0;
