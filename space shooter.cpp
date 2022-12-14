@@ -11,11 +11,11 @@
 
 
 #define LEBAR_LAYAR 91
+//Mendefinisikan bahwa lebar layar 91
 #define TINGGI_LAYAR 26
+//Mendefinisikan bahwa tinggi layar 26
 #define LEBAR_AREA 70
-#define MENU_WIDTH 20
-#define GAP_SIZE 7
-#define Enemy_DIF 45
+//Mendefinisikan bahwa lebar layar game 70
 
 using namespace std; 
  
@@ -24,17 +24,17 @@ COORD PosisiCursor;
 //Di gunakan untuk menempatkan kursor di tempat yang tidak dapat dicapai bila
 //hanya menggunakan sekuensi program saja
 
-
 int musuhY[3];
 // posisi musuh
 int musuhX[3];
 // posisi musuh
 int enemyFlag[3];
 // muncul dan menghilangnya musuh
-char pesawat[3][5] = { ' ',' ','^',' ',' ',
-		       '|','^','^','^','|',
-		      '^','?','?','?','^' }; 
 
+char pesawat[3][5] = { ' ',' ','^',' ',' ',
+						'|','^','^','^','|',
+						'^','?','?','?','^' }; 
+						
 int posisiPesawat = LEBAR_AREA/2;
 int skor = 0;
 int peluru[20][4];
@@ -86,7 +86,7 @@ void gotoxy(int x, int y){
 
 void setcursor(bool visible, DWORD size) {
 	if(size == 0)
-	size = 20;	
+	size = 20; //default cursor size		
 	
 	CONSOLE_CURSOR_INFO lpCursor;	
 	//untuk memodifikasi lokasi tinggi dan visibilitas	
@@ -109,7 +109,8 @@ void Border(){
 	}
 }
 void genEnemy(int ind){
-	musuhX[ind] = 5 + rand()%(LEBAR_AREA-10);  
+	musuhX[ind] = 5 + rand()%(LEBAR_AREA-10); 
+	//menentukan random arah kemunculan musuh 
 }
 void buatMusuh(int ind){
 	if( enemyFlag[ind] == true ){
@@ -122,7 +123,7 @@ void buatMusuh(int ind){
 }
 void hapusMusuh(int ind){
 	if( enemyFlag[ind] == true ){
-		gotoxy(musuhX[ind], musuhY[ind]); cout<<"    ";  
+		gotoxy(musuhX[ind], musuhY[ind]);   cout<<"    ";  
 		gotoxy(musuhX[ind], musuhY[ind]+1); cout<<"    "; 
 		gotoxy(musuhX[ind], musuhY[ind]+2); cout<<"    "; 
 		gotoxy(musuhX[ind], musuhY[ind]+3); cout<<"    "; 
@@ -193,7 +194,7 @@ void hapusPesawat(){
 int tabrak(){
 	if( musuhY[0]+4 >= 23 ){
 		if( musuhX[0] + 4 - posisiPesawat >= 0 && musuhX[0] + 4 - posisiPesawat < 8  ){
-			return 1;
+			return 1;//agar program dapat membaca fungsi 
 		}
 	}
 	return 0;
@@ -232,7 +233,7 @@ bool play_again = false;
 
 void mulai(){
 	
-	posisiPesawat = -1 + LEBAR_AREA/2;
+	posisiPesawat = -1 + LEBAR_AREA/2; //agar posisi awal pesawat tepat di tengah area
 	skor = 0;
 	enemyFlag[0] = 1;  
 	enemyFlag[1] = 1;
@@ -242,7 +243,7 @@ void mulai(){
 		peluru[i][0] = peluru[i][1] = 0; 
 	}
 	
-	system("cls"); 
+	system("cls"); //sistem yang dapat menghapus layar screen
 	Border();
 	genEnemy(0);
 	genEnemy(1);
@@ -257,12 +258,12 @@ void mulai(){
 	gotoxy(LEBAR_AREA + 2, 15);cout<<" D Key - Kanan";
 	gotoxy(LEBAR_AREA + 2, 16);cout<<" Spacebar = Tembak";
 	
-	gotoxy(10, 5);cout<<"Press any key to start";
+	gotoxy(10, 5);cout<<"Tekan apapun untuk memulai.";
 	getch();
-	gotoxy(10, 5);cout<<"                      ";
+	gotoxy(10, 5);cout<<"                           ";
 	
 	while(1){
-		if(kbhit()){
+		if(kbhit()){ //untuk dapat menentukan apakah tombol telah ditekan atau tidak (conio.h)
 			char ch = getch();
 			if( ch=='a' || ch=='A' ){
 				if( posisiPesawat > 2 )
@@ -288,7 +289,7 @@ void mulai(){
 			system("cls");
 			cout<<endl;
 			cout<<"\t\t--------------------------"<<endl;
-			cout<<"\t\t-------- Game Over -------"<<endl;
+			cout<<"\t\t--------   KALAH   -------"<<endl;
 			cout<<"\t\t--------------------------"<<endl<<endl;
 			cout<<"\t\t    yaah kamu kalah :("<<endl<<endl;
 			getch();
@@ -321,20 +322,22 @@ void mulai(){
 			skor++;
 			totalSkor();
 				if(skor==10){
+					Sleep(400);
 					system("break");
 					system("cls");
 					cout<<endl;
 					cout<<"\t\t--------------------------"<<endl;
-					cout<<"\t\t-------- KAMU MENANG -----"<<endl;
+					cout<<"\t\t--------   MENANG    -----"<<endl;
 					cout<<"\t\t--------------------------"<<endl<<endl;
-					cout<<"\t\tTekan apapun untuk kembali ke menu.";
+					cout<<"\t    Tekan apa saja untuk kembali ke menu.";
 					getch();
+					//Menjeda ketika mengakhiri program
 					system("cls");
 					play_again = false;
 					return;
 			}
 		} 
-		Sleep(200);
+		Sleep(30);
 		hapusPesawat();
 		hapusMusuh(0);
 		hapusMusuh(1);
@@ -360,16 +363,18 @@ int main()
 {
 
 	setcursor(0,0); 
-	srand( (unsigned)time(NULL)); 
+	srand( (unsigned)time(NULL));
+	//syarat agar dapat menggunakan tools srand/rand 
 	 
-	system ("color D");
-    gotoxy(27,10); cout<<"==============================================================";
-    gotoxy(27,11); cout<<"                                                              ";
-    gotoxy(27,12); cout<<"    _____                    _____ _           _              ";
-    gotoxy(27,13); cout<<"   |   __|___ ___ ___ ___   |   __| |_ ___ ___| |_ ___ ___    ";
+	system ("color E");
+	//Sistem untuk menambahkan warna
+	gotoxy(27,10); cout<<"==============================================================";
+    gotoxy(27,11); cout<<"   .                  +                                  .    ";
+    gotoxy(27,12); cout<<" +  _____       .            _____ _     +     _              ";
+    gotoxy(27,13); cout<<"   |   __|___ __ ___ ___    |   __| |_ ___ ___| |_ ___ ___    ";
     gotoxy(27,14); cout<<"   |__   | . | .'|  _| -_|  |__   |   | . | . |  _| -_|  _|   ";
     gotoxy(27,15); cout<<"   |_____|  _|__,|___|___|  |_____|_|_|___|___|_| |___|_|     ";
-    gotoxy(27,16); cout<<"         |_|                                                   ";
+    gotoxy(27,16); cout<<"  +      |_|      +                          .             +   ";
     gotoxy(27,17); cout<< "=============================================================";
     Sleep(4000);
     system("cls");
@@ -384,11 +389,14 @@ int main()
 		system("Color A");
 		gotoxy(10,5); cout<<" -------------------------- "; 
 		gotoxy(10,6); cout<<" |          MENU          | "; 
-		gotoxy(10,7); cout<<" --------------------------";
-		gotoxy(10,9); cout<<"1. Start Game";
-		gotoxy(10,10); cout<<"2. Quit";	 
-		gotoxy(10,12); cout<<"Select option: ";
+		gotoxy(10,7); cout<<" -------------------------- ";
+		gotoxy(10,9); cout<<" --------------------------";
+		gotoxy(10,10);cout<<" | 1. Mulai Permainan     |";
+		gotoxy(10,11);cout<<" | 2. Keluar              |";
+		gotoxy(10,12); cout<<" --------------------------";	 
+		gotoxy(10,13);cout<<"   Pilih Menu:             ";
 		char op = getche();
+		//getche fungsinya sama dengan getch bedanya dapat menampilkan karakter yang diinput
 		system("cls");
 		
 		if( op=='1'){
@@ -397,9 +405,12 @@ int main()
 		load();
 		mulai();
 		}else if( op=='2'){
-		cout<<"\nTerimakasih sudah menggunakan program kami";
-		cout<<"\n(0>.<0)";
+		cout << "\n\n\n\t______________________________________________________\n\n\n";
+		cout << "\t~ ~ ~ Terimakasih telah menggunakan program kami ~ ~ ~\n\n";
+		cout<<  "\t                        (0>.<0)                         \n";
+		cout << "\t______________________________________________________\n\n\n";
 		exit(0);
+		//exit atau memberhentikan program secara paksa/manual
 		}else{
 		system("cls");
 		}
